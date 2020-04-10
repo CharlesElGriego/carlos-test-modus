@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using CarlosTest.Dtos;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,7 +15,7 @@ namespace CarlosTest.Controllers
     /// </summary>
     internal static class TokenGenerator
     {
-        public static string GenerateTokenJwt(string username)
+        public static string GenerateTokenJwt(UserDto userDto)
         {
             // appsetting for Token JWT
             var secretKey = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
@@ -26,7 +27,12 @@ namespace CarlosTest.Controllers
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             // create a claimsIdentity
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) });
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] 
+            {
+                new Claim(ClaimTypes.Name, userDto.FullName),
+                new Claim(ClaimTypes.Email, userDto.Email),
+                new Claim(ClaimTypes.Role, userDto.Type.ToString())
+            });
 
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();

@@ -63,7 +63,7 @@ namespace CarlosTest.Controllers
 
             if (isCredentialValid)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);
+                var token = TokenGenerator.GenerateTokenJwt(currentUser);
                 return Ok(token);
             }
             else
@@ -86,7 +86,7 @@ namespace CarlosTest.Controllers
             try
             {
                 await _userService.RegisterUserAsync(user);
-                var token = TokenGenerator.GenerateTokenJwt(user.Email);
+                var token = TokenGenerator.GenerateTokenJwt(user);
                 return Ok(token);
             }
             catch(Exception exception) {
