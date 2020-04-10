@@ -34,12 +34,12 @@ namespace DataDB.Data
 
             #region FeedItem
             List<FeedItem> feedItems = new List<FeedItem>();
-            feedItems.Add(new FeedItem() { Id = 1, FeedId = 1, Title = "Title 1", Content = "Content 1" });
-            feedItems.Add(new FeedItem() { Id = 2, FeedId = 1, Title = "Title 2", Content = "Content 2" });
-            feedItems.Add(new FeedItem() { Id = 3, FeedId = 1, Title = "Title 3", Content = "Content 3" });
+            feedItems.Add(new FeedItem() { Id = 1, FeedId = 1, Title = "Title 1", Content = "Content 1", Date = DateTime.UtcNow });
+            feedItems.Add(new FeedItem() { Id = 2, FeedId = 1, Title = "Title 2", Content = "Content 2", Date = DateTime.UtcNow });
+            feedItems.Add(new FeedItem() { Id = 3, FeedId = 1, Title = "Title 3", Content = "Content 3", Date = DateTime.UtcNow });
 
-            feedItems.Add(new FeedItem() { Id = 4, FeedId = 2, Title = "Title 1", Content = "Content 1" });
-            feedItems.Add(new FeedItem() { Id = 5, FeedId = 2, Title = "Title 2", Content = "Content 2" });
+            feedItems.Add(new FeedItem() { Id = 4, FeedId = 2, Title = "Title 1", Content = "Content 1", Date = DateTime.UtcNow });
+            feedItems.Add(new FeedItem() { Id = 5, FeedId = 2, Title = "Title 2", Content = "Content 2", Date = DateTime.UtcNow });
 
             feedItems.ForEach(feedItem => context.FeedItems.Add(feedItem));
             #endregion
