@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace CarlosTest.Controllers
@@ -54,6 +55,7 @@ namespace CarlosTest.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+
             string loginPassword = HashPassword.ToHashPassword(login.Password);
             bool isCredentialValid = HashPassword.VerifyHashedPassword(currentUser.UserPassword, login.Password);
 
@@ -82,12 +84,14 @@ namespace CarlosTest.Controllers
             try
             {
                 await _userService.RegisterUserAsync(user);
-                 var token = TokenGenerator.GenerateTokenJwt(user.Email);
+                var token = TokenGenerator.GenerateTokenJwt(user.Email);
                 return Ok(token);
             }
-            catch(Exception e)
-            {
-                throw new HttpResponseException(HttpStatusCode.Conflict);
+            catch(Exception exception) {
+                HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.Conflict);
+                errorMessage.Content = new StringContent(exception.Message);
+
+                throw new HttpResponseException(errorMessage);
             }
         }
         
