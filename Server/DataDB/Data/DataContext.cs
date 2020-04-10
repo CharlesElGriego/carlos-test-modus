@@ -22,7 +22,12 @@ namespace DataDB.Data
 
             modelBuilder.Entity<User>()
                  .ToTable("User");
-           
+            modelBuilder.Entity<UserFeed>().HasKey(userFeed =>
+               new
+               {
+                userFeed.FeedId,
+                userFeed.UserId
+               });
         }
 
         public DbSet<Feed> Feeds { get; set; }
