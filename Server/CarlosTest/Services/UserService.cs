@@ -54,7 +54,7 @@ namespace CarlosTest.Services
             {
                await _repository.RegisterUserAsync(newUser);
             }
-            catch(Exception e)
+            catch (Exception)
             {
                 throw new Exception("User already exists");
             }
@@ -62,8 +62,6 @@ namespace CarlosTest.Services
            
         }
         #endregion
-
-
 
     }
 }

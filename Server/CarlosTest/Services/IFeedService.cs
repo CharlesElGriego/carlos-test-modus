@@ -1,4 +1,5 @@
-﻿using DataDB.Models;
+﻿using CarlosTest.Dtos;
+using DataDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace CarlosTest.Services
 {
     public interface IFeedService
     {
-        List<Feed> GetFeeds();
+        Task<List<FeedDto>> GetFeeds();
+        Task<List<FeedItemDto>> GetFeedItems(int feedId);
+        Task<List<FeedDto>> GetFeedItems(string email);
+        Task<bool> SuscribeToFeed(int feedId, string email);
     }
 }
