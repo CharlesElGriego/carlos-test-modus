@@ -11,5 +11,7 @@ namespace DataDB.Models
         [MaxLength(50)]
         public string FeedName { get; set; }
 
+        public virtual ICollection<UserFeed> UserFeeds { get; set; }
+        public virtual ICollection<FeedItem> FeedItems { get; set; }
     }
 }

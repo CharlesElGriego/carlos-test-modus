@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataDB.Models
 {
@@ -17,6 +19,9 @@ namespace DataDB.Models
         [MaxLength(1000)]
         public string Content { get; set; }
 
-       
+        [Required]
+        public DateTime Date { get; set; }
+
+        public virtual Feed Feed { get; set; }
     }
 }
