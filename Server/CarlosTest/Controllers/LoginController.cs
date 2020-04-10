@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace CarlosTest.Controllers
 {
@@ -20,6 +21,7 @@ namespace CarlosTest.Controllers
     /// </summary>
     [AllowAnonymous]
     [RoutePrefix("api/login")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
         #region Private properties
