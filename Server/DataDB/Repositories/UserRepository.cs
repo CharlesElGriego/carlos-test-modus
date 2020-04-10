@@ -36,6 +36,5 @@ namespace DataDB.Repositories
         }
         #endregion
 
-
     }
 }

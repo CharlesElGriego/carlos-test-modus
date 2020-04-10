@@ -9,6 +9,9 @@ namespace DataDB.Repositories
 {
     public interface IFeedRepository
     {
-        List<Feed> GetFeeds();
+        Task<List<Feed>> GetFeeds();
+        Task<List<FeedItem>> GetFeedItems(int feedId);
+        Task<List<Feed>> GetFeedItems(string email);
+        Task<UserFeed> SuscribeToFeed(int feedId, string email);
     }
 }

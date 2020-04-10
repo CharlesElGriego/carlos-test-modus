@@ -9,7 +9,7 @@ namespace DataDB.Repositories
 {
     public interface IUserRepository
     {
-         Task<User> GetUser(string email);
-         Task RegisterUserAsync(User user);
+        Task<User> GetUser(string email);
+        Task RegisterUserAsync(User user);
     }
 }
