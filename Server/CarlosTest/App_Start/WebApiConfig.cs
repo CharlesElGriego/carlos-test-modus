@@ -17,6 +17,8 @@ namespace CarlosTest
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting = Formatting.Indented;
             // settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
+            = ReferenceLoopHandling.Ignore;
             config.MessageHandlers.Add(new TokenValidationHandler());
 
             // Web API routes
