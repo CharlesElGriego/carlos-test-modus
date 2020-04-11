@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   //#region   Constructor
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
   //#region
 
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.saveToken(token);
         this.authService.authenticated$.next(true);
         this.authService.setUser();
+        this.router.navigate(['feeds']);
       }
     });
   }

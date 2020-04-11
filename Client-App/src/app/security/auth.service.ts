@@ -39,10 +39,11 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    const token = this.getToken();
+    const token = this.getToken(); // check if valid
     if (token) {
       return true;
     } else {
+      this.authenticated$.next(false);
       return false;
     }
   }
