@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /*Lifecycle Hooks  */
   ngOnInit(): void {
+    this.authService.isAuthenticated();
   }
   ngOnDestroy(): void {
   }

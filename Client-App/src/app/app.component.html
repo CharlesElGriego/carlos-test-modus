@@ -14,7 +14,7 @@
         <mat-nav-list>
           <a mat-list-item [routerLink]="nav.link" *ngFor="let nav of navList">{{ nav.name }}</a>
         </mat-nav-list>
-        <a mat-button class="topnavbar-container--bottom">
+        <a mat-button class="topnavbar-container--bottom" (click)="logOut()">
           <span>Log out</span>
           <mat-icon>exit_to_app</mat-icon>
         </a>

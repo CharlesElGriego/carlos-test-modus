@@ -28,11 +28,19 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  isAlreadyAuthenticated(): boolean {
+    if (this.isAuthenticated()) {
+      this.authenticated$.next(true);
+      this.setUser();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   isAuthenticated(): boolean {
     const token = this.getToken();
     if (token) {
-      // decode hacer user$
-      this.authenticated$.next(true);
       return true;
     } else {
       return false;

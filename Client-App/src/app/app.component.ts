@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { AuthService } from './security/auth.service';
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
     private errorHandlerService: ErrorHandlerService,
+    private router: Router,
     private snackbarService: SnackbarService,
     private media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -59,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
-  //#region   Public Methods
+  //#region   Life Cycle Hooks
   ngOnInit(): void {
     this.registerEvents();
   }
@@ -68,8 +70,20 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
+  //#region   Public Methods
+  logOut(): void {
+    this.authService.logOut();
+    this.router.navigate(['login']);
+  }
+  //#endregion
+
   //#region   Private Methods
   private registerEvents(): void {
+    if (this.authService.isAlreadyAuthenticated()) {
+      this.router.navigate(['feeds']);
+    } else {
+      this.router.navigate(['login']);
+    }
     this.authenticated$ = this.authService.authenticated$;
     this.user$ = this.authService.user$;
 
