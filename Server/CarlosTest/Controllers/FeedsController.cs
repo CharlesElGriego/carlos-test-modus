@@ -32,7 +32,7 @@ namespace CarlosTest.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            return Json(await _feedService.GetFeeds());
+            return Ok(await _feedService.GetFeeds());
         }
 
         [Authorize]
@@ -40,7 +40,7 @@ namespace CarlosTest.Controllers
         [Route("GetFeedItems")]
         public async Task<IHttpActionResult> GetFeedItems(int feedId)
         {
-            return Json(await _feedService.GetFeedItems(feedId));
+            return Ok(await _feedService.GetFeedItems(feedId));
         }
 
         [Authorize]
@@ -48,7 +48,7 @@ namespace CarlosTest.Controllers
         [Route("GetFeedItems")]
         public async Task<IHttpActionResult> GetFeedItems(string email)
         {
-            return Json(await _feedService.GetFeedItems(email));
+            return Ok(await _feedService.GetFeedItems(email));
         }
 
         [Authorize]

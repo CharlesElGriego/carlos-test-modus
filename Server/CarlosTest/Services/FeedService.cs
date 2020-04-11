@@ -71,12 +71,12 @@ namespace CarlosTest.Services
                 FeedDto newFeed = new FeedDto();
                 newFeed.Name = feed.FeedName;
                 newFeed.Id = feed.Id;
-                newFeed.items = new List<FeedItemDto>();
+                newFeed.Items = new List<FeedItemDto>();
              
                 List<FeedItem> feedItems = feed.FeedItems.ToList();
                 foreach(FeedItem item in feedItems)
                 {
-                    newFeed.items.Add(new FeedItemDto()
+                    newFeed.Items.Add(new FeedItemDto()
                     {
                         Id = item.Id,
                         Content = item.Content,
