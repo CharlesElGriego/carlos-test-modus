@@ -50,18 +50,18 @@ namespace CarlosTest.Controllers
         {
             if (login == null || login?.Username == null || login?.Username == null)
             {
-                var message = "Bad Request";
-                HttpError err = new HttpError(message);
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, err));
+                HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                errorMessage.Content = new StringContent("Bad Request");
+                throw new HttpResponseException(errorMessage);
             }
 
             var currentUser = await _userService.GetUser(login.Username);
 
             if (currentUser == null)
             {
-                var message = "User not found";
-                HttpError err = new HttpError(message);
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, err));
+                HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.NotFound);
+                errorMessage.Content = new StringContent("User not found");
+                throw new HttpResponseException(errorMessage);
             }
 
             string loginPassword = HashPassword.ToHashPassword(login.Password);
@@ -74,10 +74,9 @@ namespace CarlosTest.Controllers
             }
             else
             {
-                var message = "Invalid credentials";
-                HttpError err = new HttpError(message);
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Unauthorized, err));
-
+                HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                errorMessage.Content = new StringContent("Invalid credentials");
+                throw new HttpResponseException(errorMessage);
             }
         }
        
@@ -86,7 +85,11 @@ namespace CarlosTest.Controllers
         public async Task<IHttpActionResult> RegisterAsync([FromBody] UserDto user)
         {
             if (user == null || user?.Email == null || user?.UserPassword == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            {
+                HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                errorMessage.Content = new StringContent("Bad Request");
+                throw new HttpResponseException(errorMessage);
+            }
             
             string hashPassword = HashPassword.ToHashPassword(user.UserPassword);
             user.UserPassword = hashPassword;
@@ -99,8 +102,9 @@ namespace CarlosTest.Controllers
                 return Ok(token);
             }
             catch(Exception exception) {
-                HttpError err = new HttpError(exception.Message);
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict, err));
+                HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.Conflict);
+                errorMessage.Content = new StringContent(exception.Message);
+                throw new HttpResponseException(errorMessage);
             }
         }
         
