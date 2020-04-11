@@ -1,0 +1,41 @@
+<div class="login-page">
+  <div class="login-spacer"></div>
+  <div class="login-container">
+    <div id="login-fab" class="mdl-color--accent mdl-color-text--white">
+      <i id="lock-icon" class="material-icons"></i>
+    </div>
+    <h2 class="card-heading">
+      Carlos News Feeds
+    </h2>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <mat-form-field appearance="outline">
+        <mat-label>User</mat-label>
+        <input matInput type="email" formControlName="username">
+        <mat-error *ngIf="username.hasError('email') && !username.hasError('required')">
+          Please, write a valid email.
+        </mat-error>
+        <mat-error *ngIf="username.hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type='password' formControlName="password">
+        <mat-error *ngIf="password.hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <div class="buttons">
+      <div class="login">
+        <button mat-raised-button color="primary" type="submit" (click)="login()" [disabled]="!this.loginForm.valid">
+          Log In</button>
+      </div>
+      <div class="register">
+        <button mat-button color="primary">Register</button>
+      </div>
+    </div>
+  </div>
+</div>
