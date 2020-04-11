@@ -1,1 +1,15 @@
-<p>feeds works!</p>
+<div class="feeds" fxLayout="row wrap" fxLayout.xs="column">
+
+  <div class="feeds__card" fxFlex="33%" fxFlex.sm="50%" *ngFor="let feed of (feeds$ |async), let i = index">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{feed.name}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-actions align="end">
+        <button mat-button color="accent" (click)="suscribe(feed.id, i)">Suscribe</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>
