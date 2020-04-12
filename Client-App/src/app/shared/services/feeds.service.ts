@@ -9,7 +9,6 @@ import { Feed, FeedItem } from '../models';
 export class FeedsService {
 
   constructor(private http: HttpClient) { }
-  // Task<bool> SuscribeToFeed(int feedId, string email);
 
   getFeeds(email: string): Observable<Feed[]> {
     return this.http.get<Feed[]>(`feeds?email=${email}`);
@@ -22,6 +21,11 @@ export class FeedsService {
   getFeedItemsFromEmail(email: string): Observable<FeedItem[]> {
     return this.http.get<FeedItem[]>(`feeds/GetFeedItems?email=${email}`);
   }
+
+  myFeeds(email: string): Observable<Feed[]> {
+    return this.http.get<Feed[]>(`feeds/myfeeds?email=${email}`);
+  }
+
   suscribeToFeed(feedId: number, userEmail: string): Observable<boolean> {
     return this.http.post<boolean>('feeds/suscribetofeed', { feedId, userEmail });
   }
