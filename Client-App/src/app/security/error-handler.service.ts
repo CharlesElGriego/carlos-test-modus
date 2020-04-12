@@ -18,7 +18,7 @@ export class ErrorHandlerService {
 
   //#region   Public Methods
   addServerError(data: HttpErrorResponse): void {
-    this.serverError$.next(data.error.message);
+    this.serverError$.next(data.error);
   }
 
   removeServerError(): void {
