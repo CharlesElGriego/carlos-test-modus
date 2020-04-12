@@ -24,10 +24,10 @@ namespace DataDB.Data
 
             #region Feed
             List<Feed> feeds = new List<Feed>();
-            feeds.Add(new Feed() { Id = 1, FeedName = "Android Police" });
-            feeds.Add(new Feed() { Id = 2, FeedName = "9to5 Mac" });
-            feeds.Add(new Feed() { Id = 3, FeedName = "9to5 Google" });
-            feeds.Add(new Feed() { Id = 4, FeedName = "ComicBook.com" });
+            feeds.Add(new Feed() { Id = 1, FeedName = "Android Police", IsSubscribed=true, Image= "https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1424946691/jpukpapfq2sw6oyt7gnn.png" });
+            feeds.Add(new Feed() { Id = 2, FeedName = "9to5 Mac", IsSubscribed= true, Image= "https://res-2.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/y9bpkuhobwfldihvetuk" });
+            feeds.Add(new Feed() { Id = 3, FeedName = "9to5 Google", IsSubscribed=true, Image= "https://res-5.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1424949370/kot3evc40bwghtzmbjri.png" });
+            feeds.Add(new Feed() { Id = 4, FeedName = "ComicBook.com" , IsSubscribed=true, Image= "https://res-2.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1489443930/qlzwswdojhjfw8wvlqor.png" });
 
             feeds.ForEach(feed => context.Feeds.Add(feed));
             #endregion

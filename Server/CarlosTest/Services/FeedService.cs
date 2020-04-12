@@ -27,16 +27,18 @@ namespace CarlosTest.Services
 
         #region Public Methods
 
-        public async Task<List<FeedDto>> GetFeeds()
+        public async Task<List<FeedDto>> GetFeeds(string email)
         {
-            List<Feed> feeds = await _repository.GetFeeds();
+            List<Feed> feeds = await _repository.GetFeeds(email);
             List<FeedDto> list = new List<FeedDto>();
             foreach (Feed feed in feeds)
             {
                 list.Add(new FeedDto()
                 {
                     Id = feed.Id,
-                    Name = feed.FeedName
+                    Name = feed.FeedName,
+                    Image = feed.Image,
+                    IsSubscribed = feed.IsSubscribed
                 });
             }
 
@@ -47,44 +49,64 @@ namespace CarlosTest.Services
         {
             List<FeedItem> feedItems = await _repository.GetFeedItems(feedId);
             List<FeedItemDto> list = new List<FeedItemDto>();
-            foreach (FeedItem feedItem in feedItems)
+            if (feedItems != null)
             {
-                list.Add(new FeedItemDto() {
-                    Id = feedItem.Id, 
-                    Title = feedItem.Title,
-                    Content = feedItem.Content,
-                    Date =feedItem.Date,
-                    ParentName = feedItem.Feed.FeedName
-                });
+                foreach (FeedItem feedItem in feedItems)
+                {
+                    list.Add(new FeedItemDto()
+                    {
+                        Id = feedItem.Id,
+                        Title = feedItem.Title,
+                        Content = feedItem.Content,
+                        Date = feedItem.Date,
+                        ParentName = feedItem.Feed.FeedName
+                    });
+                }
             }
 
             return list;
         }
 
-        public async Task<List<FeedDto>> GetFeedItems(string email)
+        public async Task<List<FeedItemDto>> GetFeedItems(string email)
         {
-            List<Feed> feeds = await _repository.GetFeedItems(email);
+            List<Feed> feeds = await _repository.GetFeedItems(email, true);
             
+            List<FeedItemDto> list = new List<FeedItemDto>();
+            foreach (Feed feed in feeds)
+            {
+                List<FeedItem> feedItems = feed.FeedItems?.ToList();
+                if(feedItems != null)
+                {
+                    foreach (FeedItem item in feedItems)
+                    {
+                        list.Add(new FeedItemDto()
+                        {
+                            Id = item.Id,
+                            Content = item.Content,
+                            Date = item.Date,
+                            ParentName = item.Feed.FeedName,
+                            Title = item.Title
+                        });
+                    }
+                }
+
+            }
+
+            return list;
+        }
+
+        public async Task<List<FeedDto>> MyFeeds(string email)
+        {
+            List<Feed> feeds = await _repository.GetFeedItems(email, false);
+
             List<FeedDto> list = new List<FeedDto>();
             foreach (Feed feed in feeds)
             {
                 FeedDto newFeed = new FeedDto();
                 newFeed.Name = feed.FeedName;
                 newFeed.Id = feed.Id;
-                newFeed.Items = new List<FeedItemDto>();
-             
-                List<FeedItem> feedItems = feed.FeedItems.ToList();
-                foreach(FeedItem item in feedItems)
-                {
-                    newFeed.Items.Add(new FeedItemDto()
-                    {
-                        Id = item.Id,
-                        Content = item.Content,
-                        Date = item.Date,
-                        ParentName = item.Feed.FeedName,
-                        Title = item.Title
-                    });
-                }
+                newFeed.Image = feed.Image;
+                newFeed.IsSubscribed = true;
 
                 list.Add(newFeed);
             }

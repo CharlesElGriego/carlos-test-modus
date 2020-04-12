@@ -30,9 +30,9 @@ namespace CarlosTest.Controllers
 
         #region Public Methods
         [HttpGet]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Get(string email)
         {
-            return Ok(await _feedService.GetFeeds());
+            return Ok(await _feedService.GetFeeds(email));
         }
 
         [Authorize]
@@ -49,6 +49,14 @@ namespace CarlosTest.Controllers
         public async Task<IHttpActionResult> GetFeedItems(string email)
         {
             return Ok(await _feedService.GetFeedItems(email));
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("myFeeds")]
+        public async Task<IHttpActionResult> MyFeeds(string email)
+        {
+            return Ok(await _feedService.MyFeeds(email));
         }
 
         [Authorize]
@@ -82,11 +90,11 @@ namespace CarlosTest.Controllers
                 else if (httpStatusCode == (int)HttpStatusCode.Conflict)
                 {
                     HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.Conflict);
-                    errorMessage.Content = new StringContent("User is already subscribed to this feed");
+                    errorMessage.Content = new StringContent("You are already subscribed to this feed");
                     throw new HttpResponseException(errorMessage);
                 }
             }
-            return Ok();
+            return Ok(true);
         }
 
         #endregion

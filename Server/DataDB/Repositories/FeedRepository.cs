@@ -22,12 +22,30 @@ namespace DataDB.Repository
 
         #region Public Methods
 
-        public async Task<List<Feed>> GetFeeds()
+        public async Task<List<Feed>> GetFeeds(string email)
         {
             using (var context = new DataContext())
             {
-                return await context.Feeds.ToListAsync();
+               // context.Configuration.LazyLoadingEnabled = false;
+
+                User currentUser = await context.Users.FirstOrDefaultAsync(user => user.Email == email);
+
+                if (currentUser != null)
+                {
+                    List<Feed> feeds = await context.Feeds.Include(f => f.UserFeeds).ToListAsync();
+
+                    return feeds.Select(f => 
+                        new Feed{
+                           Id = f.Id, 
+                           FeedName = f.FeedName,
+                           Image = f.Image,
+                           IsSubscribed = f.UserFeeds.Any( uf => uf.UserId == currentUser.Id && uf.FeedId == f.Id)
+                        }).ToList();
+                }
+
+                return null;
             }
+
         }
 
         public async Task<List<FeedItem>> GetFeedItems(int feedId)
@@ -47,26 +65,38 @@ namespace DataDB.Repository
             }
         }
 
-        public async Task<List<Feed>> GetFeedItems(string email)
+        public async Task<List<Feed>> GetFeedItems(string email, bool withItems)
         {
             using (var context = new DataContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-
                 User currentUser =  await context.Users.FirstOrDefaultAsync(user => user.Email == email);
-
-                var aa = context.Users.ToList();
-                var aba = context.Feeds.ToList();
-                var aaa = context.FeedItems.ToList();
-                var aaca = context.UserFeeds.ToList();
 
                 if (currentUser != null)
                 {
-                    return await context.UserFeeds
-                        .Where(userFeed => userFeed.UserId == currentUser.Id)
-                        .Select(a => a.Feed)
+                    List<UserFeed> userFeeds = new List<UserFeed>();
+                    if (withItems)
+                    {
+                       userFeeds = await context.UserFeeds
+                           .Where(userFeed => userFeed.UserId == currentUser.Id)
+                           .Include(u => u.Feed.FeedItems)
+                          .ToListAsync();
+                    }
+                    else
+                    {
+                        userFeeds = await context.UserFeeds
+                         .Where(userFeed => userFeed.UserId == currentUser.Id)
+                         .Include(u => u.Feed)
                         .ToListAsync();
-                       
+                    }
+
+                    List<Feed> feeds = new List<Feed>();
+                    foreach (UserFeed userFeed in userFeeds)
+                    {
+                        feeds.Add(userFeed.Feed);
+                    }
+
+                    return feeds;
                 }
 
                 return null;
