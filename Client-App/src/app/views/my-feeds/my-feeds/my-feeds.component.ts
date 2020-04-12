@@ -13,7 +13,6 @@ import { FeedsService } from 'src/app/shared/services/feeds.service';
 export class MyFeedsComponent implements OnInit {
 
   //#region   Public Properties
-  feeds: Feed[] = [];
   feeds$ = new BehaviorSubject<Feed[]>([]);
   //#endregion
 
