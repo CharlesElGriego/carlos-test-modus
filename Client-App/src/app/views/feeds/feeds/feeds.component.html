@@ -5,9 +5,10 @@
       <mat-card-header>
         <mat-card-title>{{feed.name}}</mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <img class="feeds__img" mat-card-image src="{{feed.image}}" alt="{{feed.name}}">
       <mat-card-actions align="end">
-        <button mat-button color="accent" (click)="suscribe(feed.id, i)">Suscribe</button>
+        <button *ngIf="!feed.isSubscribed" mat-button color="accent" (click)="suscribe(feed.id, i)">Suscribe</button>
+        <button *ngIf="feed.isSubscribed" mat-button disabled>Suscribed</button>
       </mat-card-actions>
     </mat-card>
   </div>
