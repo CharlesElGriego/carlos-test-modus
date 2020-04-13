@@ -13,13 +13,6 @@ namespace DataDB.Repository
     public class FeedRepository : IFeedRepository
     {
 
-        #region Constructor
-        public FeedRepository()
-        {
-
-        }
-        #endregion
-
         #region Public Methods
 
         public async Task<List<Feed>> GetFeeds(string email)

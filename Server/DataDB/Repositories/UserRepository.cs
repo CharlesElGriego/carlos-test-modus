@@ -11,13 +11,7 @@ namespace DataDB.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        #region Constructor
-        public UserRepository()
-        {
-        }
-        #endregion
-
-        #region Public Methods
+         #region Public Methods
         public async Task<User> GetUser(string email)
         {
             using (var context = new DataContext())
