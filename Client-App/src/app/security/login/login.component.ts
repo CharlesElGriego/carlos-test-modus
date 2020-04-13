@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.saveToken(token);
         this.authService.authenticated$.next(true);
         this.authService.setUser();
-        this.router.navigate(['feeds']);
+        this.router.navigate(['my-feeds']);
       }
     });
   }
