@@ -27,51 +27,23 @@ namespace CarlosTest.Services
 
         #region Public Methods
 
-        public async Task<List<FeedDto>> GetFeeds(string email)
+        public async Task<List<Feed>> GetFeeds(string email)
         {
             List<Feed> feeds = await _repository.GetFeeds(email);
-            List<FeedDto> list = new List<FeedDto>();
-            foreach (Feed feed in feeds)
-            {
-                list.Add(new FeedDto()
-                {
-                    Id = feed.Id,
-                    Name = feed.FeedName,
-                    Image = feed.Image,
-                    IsSubscribed = feed.IsSubscribed
-                });
-            }
-
-            return list;
+            return feeds;
         }
 
-        public async Task<List<FeedItemDto>> GetFeedItems(int feedId)
+        public async Task<List<FeedItem>> GetFeedItems(int feedId)
         {
             List<FeedItem> feedItems = await _repository.GetFeedItems(feedId);
-            List<FeedItemDto> list = new List<FeedItemDto>();
-            if (feedItems != null)
-            {
-                foreach (FeedItem feedItem in feedItems)
-                {
-                    list.Add(new FeedItemDto()
-                    {
-                        Id = feedItem.Id,
-                        Title = feedItem.Title,
-                        Content = feedItem.Content,
-                        Date = feedItem.Date,
-                        ParentName = feedItem.Feed.FeedName
-                    });
-                }
-            }
-
-            return list;
+            return feedItems;
         }
 
-        public async Task<List<FeedItemDto>> GetFeedItems(string email)
+        public async Task<List<FeedItem>> GetFeedItems(string email)
         {
             List<Feed> feeds = await _repository.GetFeedItems(email, true);
             
-            List<FeedItemDto> list = new List<FeedItemDto>();
+            List<FeedItem> list = new List<FeedItem>();
             foreach (Feed feed in feeds)
             {
                 List<FeedItem> feedItems = feed.FeedItems?.ToList();
@@ -79,14 +51,7 @@ namespace CarlosTest.Services
                 {
                     foreach (FeedItem item in feedItems)
                     {
-                        list.Add(new FeedItemDto()
-                        {
-                            Id = item.Id,
-                            Content = item.Content,
-                            Date = item.Date,
-                            ParentName = item.Feed.FeedName,
-                            Title = item.Title
-                        });
+                        list.Add(item);
                     }
                 }
 
@@ -95,23 +60,10 @@ namespace CarlosTest.Services
             return list;
         }
 
-        public async Task<List<FeedDto>> MyFeeds(string email)
+        public async Task<List<Feed>> MyFeeds(string email)
         {
             List<Feed> feeds = await _repository.GetFeedItems(email, false);
-
-            List<FeedDto> list = new List<FeedDto>();
-            foreach (Feed feed in feeds)
-            {
-                FeedDto newFeed = new FeedDto();
-                newFeed.Name = feed.FeedName;
-                newFeed.Id = feed.Id;
-                newFeed.Image = feed.Image;
-                newFeed.IsSubscribed = true;
-
-                list.Add(newFeed);
-            }
-
-            return list;
+            return feeds;
         }
 
         public async Task<bool> SuscribeToFeed(int feedId, string email)

@@ -10,10 +10,10 @@ namespace CarlosTest.Services
 {
     public interface IFeedService
     {
-        Task<List<FeedDto>> GetFeeds(string email);
-        Task<List<FeedItemDto>> GetFeedItems(int feedId);
-        Task<List<FeedItemDto>> GetFeedItems(string email);
-        Task<List<FeedDto>> MyFeeds(string email);
+        Task<List<Feed>> GetFeeds(string email);
+        Task<List<FeedItem>> GetFeedItems(int feedId);
+        Task<List<FeedItem>> GetFeedItems(string email);
+        Task<List<Feed>> MyFeeds(string email);
         Task<bool> SuscribeToFeed(int feedId, string email);
     }
 }

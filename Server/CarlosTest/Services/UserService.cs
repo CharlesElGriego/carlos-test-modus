@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 using CarlosTest.Dtos;
 using DataDB.Models;
 using DataDB.Repositories;
@@ -24,39 +26,20 @@ namespace CarlosTest.Services
 
         #region Public Methods
 
-        public async Task<UserDto> GetUser(string email)
+        public async Task<User> GetUser(string email)
         {
-            var user = await _repository.GetUser(email);
-            if (user == null)
-            {
-                return null;
-            }
-            return new UserDto
-            {
-                Email = user.Email,
-                FullName = user.Name,
-                Type = user.Type,
-                UserPassword = user.Password
-            };
+            return await _repository.GetUser(email);
         }
 
-        public async Task RegisterUserAsync(UserDto user)
+        public async Task RegisterUserAsync(User user)
         {
-            User newUser = new User
-            {
-                Email = user.Email,
-                Name = user.FullName,
-                Type = user.Type,
-                Password = user.UserPassword
-            };
-
             try
             {
-               await _repository.RegisterUserAsync(newUser);
+               await _repository.RegisterUserAsync(user);
             }
             catch (Exception)
             {
-                throw new Exception("User already exists");
+                throw new HttpResponseException(HttpStatusCode.Conflict);
             }
 
            
