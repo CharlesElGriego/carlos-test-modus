@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/security/auth.service';
@@ -9,7 +9,8 @@ import { FeedsService } from 'src/app/shared/services/feeds.service';
 @Component({
   selector: 'app-my-feeds',
   templateUrl: './my-feeds.component.html',
-  styleUrls: ['./my-feeds.component.scss']
+  styleUrls: ['./my-feeds.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyFeedsComponent implements OnInit {
 
