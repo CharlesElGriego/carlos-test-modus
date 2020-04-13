@@ -1,12 +1,13 @@
 {
   "name": "carlos-news-feed",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npx ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "npx ng lint --format=stylish",
+    "lint-fix": "npx ng lint --fix=true",
     "e2e": "ng e2e"
   },
   "private": true,
