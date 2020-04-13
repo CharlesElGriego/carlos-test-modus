@@ -14,7 +14,7 @@ export class FeedsService {
     return this.http.get<Feed[]>(`feeds?email=${email}`);
   }
 
-  getFeedItems(feedId: number): Observable<FeedItem[]> {
+  getFeedItems(feedId: string): Observable<FeedItem[]> {
     return this.http.get<FeedItem[]>(`feeds/GetFeedItems?feedId=${feedId}`);
   }
 
