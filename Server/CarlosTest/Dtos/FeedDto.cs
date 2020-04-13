@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace CarlosTest.Services
+namespace CarlosTest.Dtos
 {
     public class FeedDto
     {

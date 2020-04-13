@@ -1,5 +1,4 @@
-﻿using CarlosTest.Dtos;
-using DataDB.Models;
+﻿using DataDB.Models;
 using DataDB.Repositories;
 using System;
 using System.Collections.Generic;

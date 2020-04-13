@@ -10,16 +10,9 @@ namespace CarlosTest.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Carlos Test Server Web API";
 
             return View();
         }
-
-        [HttpGet]
-        public JsonResult Feeds()
-        {
-            return Json("sirve", JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

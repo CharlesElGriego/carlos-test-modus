@@ -26,8 +26,6 @@ namespace DataDB.Repository
         {
             using (var context = new DataContext())
             {
-               // context.Configuration.LazyLoadingEnabled = false;
-
                 User currentUser = await context.Users.FirstOrDefaultAsync(user => user.Email == email);
 
                 if (currentUser != null)
@@ -99,7 +97,7 @@ namespace DataDB.Repository
                     return feeds;
                 }
 
-                return null;
+                return new List<Feed>();
             }
         }
 

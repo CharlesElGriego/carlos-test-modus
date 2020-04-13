@@ -1,5 +1,7 @@
-﻿using CarlosTest.Dtos;
+﻿using CarlosTest.App_Start;
+using CarlosTest.Dtos;
 using CarlosTest.Services;
+using DataDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,11 @@ namespace CarlosTest.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get(string email)
         {
-            return Ok(await _feedService.GetFeeds(email));
+
+            List<Feed> feeds = await _feedService.GetFeeds(email);
+            List<FeedDto> feedsDto = new List<FeedDto>();
+            AutoMapperWebConfiguration.Mapper.Map(feeds, feedsDto);
+            return Ok(feedsDto);
         }
 
         [Authorize]
@@ -40,7 +46,10 @@ namespace CarlosTest.Controllers
         [Route("GetFeedItems")]
         public async Task<IHttpActionResult> GetFeedItems(int feedId)
         {
-            return Ok(await _feedService.GetFeedItems(feedId));
+            List<FeedItem> feedItems = await _feedService.GetFeedItems(feedId);
+            List<FeedItemDto> feedItemsDto = new List<FeedItemDto>();
+            AutoMapperWebConfiguration.Mapper.Map(feedItems, feedItemsDto);
+            return Ok(feedItemsDto);
         }
 
         [Authorize]
@@ -48,7 +57,10 @@ namespace CarlosTest.Controllers
         [Route("GetFeedItems")]
         public async Task<IHttpActionResult> GetFeedItems(string email)
         {
-            return Ok(await _feedService.GetFeedItems(email));
+            List<FeedItem> feedItems = await _feedService.GetFeedItems(email);
+            List<FeedItemDto> feedItemsDto = new List<FeedItemDto>();
+            AutoMapperWebConfiguration.Mapper.Map(feedItems, feedItemsDto);
+            return Ok(feedItemsDto);
         }
 
         [Authorize]
@@ -56,7 +68,10 @@ namespace CarlosTest.Controllers
         [Route("myFeeds")]
         public async Task<IHttpActionResult> MyFeeds(string email)
         {
-            return Ok(await _feedService.MyFeeds(email));
+            List<Feed> feedItems = await _feedService.MyFeeds(email);
+            List<FeedDto> feedItemsDto = new List<FeedDto>();
+            AutoMapperWebConfiguration.Mapper.Map(feedItems, feedItemsDto);
+            return Ok(feedItemsDto);
         }
 
         [Authorize]

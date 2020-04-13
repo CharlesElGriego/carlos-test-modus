@@ -1,4 +1,5 @@
-﻿using DataDB.Data;
+﻿using CarlosTest.App_Start;
+using DataDB.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace CarlosTest
             GlobalConfiguration.Configuration.Formatters
                    .JsonFormatter.SerializerSettings.Re‌​ferenceLoopHandling
                    = ReferenceLoopHandling.Ignore;
+
+            AutoMapperWebConfiguration.Configure();
 
             DataContext db = new DataContext();
             db.Database.Initialize(true);

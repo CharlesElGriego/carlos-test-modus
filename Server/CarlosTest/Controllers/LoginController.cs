@@ -1,8 +1,11 @@
-﻿using CarlosTest.Dtos;
+﻿using AutoMapper;
+using CarlosTest.App_Start;
+using CarlosTest.Dtos;
 using CarlosTest.Enums;
 using CarlosTest.Models;
 using CarlosTest.Security;
 using CarlosTest.Services;
+using DataDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,7 +68,7 @@ namespace CarlosTest.Controllers
             }
 
             string loginPassword = HashPassword.ToHashPassword(login.Password);
-            bool isCredentialValid = HashPassword.VerifyHashedPassword(currentUser.UserPassword, login.Password);
+            bool isCredentialValid = HashPassword.VerifyHashedPassword(currentUser.Password, login.Password);
 
             if (isCredentialValid)
             {
@@ -82,21 +85,24 @@ namespace CarlosTest.Controllers
        
         [HttpPost]
         [Route("register")]
-        public async Task<IHttpActionResult> RegisterAsync([FromBody] UserDto user)
+        public async Task<IHttpActionResult> RegisterAsync([FromBody] UserDto userDto)
         {
-            if (user == null || user?.Email == null || user?.UserPassword == null)
+            if (userDto == null || userDto?.Email == null || userDto?.UserPassword == null)
             {
                 HttpResponseMessage errorMessage = new HttpResponseMessage(HttpStatusCode.BadRequest);
                 errorMessage.Content = new StringContent("Bad Request");
                 throw new HttpResponseException(errorMessage);
             }
             
-            string hashPassword = HashPassword.ToHashPassword(user.UserPassword);
-            user.UserPassword = hashPassword;
-            user.Type = (int) UserType.User;
+            string hashPassword = HashPassword.ToHashPassword(userDto.UserPassword);
+            userDto.UserPassword = hashPassword;
+            userDto.Type = (int) UserType.User;
 
             try
             {
+                User user = new User();
+                AutoMapperWebConfiguration.Mapper.Map(userDto, user);
+
                 await _userService.RegisterUserAsync(user);
                 var token = TokenGenerator.GenerateTokenJwt(user);
                 return Ok(token);
