@@ -1,3 +1,10 @@
+<div class="feeds__header">
+  <h3>Feeds</h3>
+  <div *ngIf="(feeds$ |async).length === 0">
+    No items available
+  </div>
+</div>
+
 <div class="feeds" fxLayout="row wrap" fxLayout.xs="column">
 
   <div class="feeds__card" fxFlex="33%" fxFlex.sm="50%" *ngFor="let feed of (feeds$ |async), let i = index">
