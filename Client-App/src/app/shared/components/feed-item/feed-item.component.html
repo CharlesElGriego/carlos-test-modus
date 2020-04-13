@@ -1,1 +1,14 @@
-<p>feed-item works!</p>
+<mat-card class="feed-item">
+  <mat-card-header>
+    <div mat-card-avatar class="feed-item__img">
+      <img class="feed-item--border-radius" mat-card-image src="{{feedItem.parentImage}}" alt="{{feedItem.parentName}}">
+    </div>
+    <mat-card-title>{{feedItem.title}}</mat-card-title>
+    <mat-card-subtitle>{{feedItem.parentName}}, {{feedItem.date | date}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="feed-item__content">
+    <p class="feed-item--justify">
+      {{feedItem.content}}
+    </p>
+  </mat-card-content>
+</mat-card>
