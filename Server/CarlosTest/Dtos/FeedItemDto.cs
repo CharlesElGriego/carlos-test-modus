@@ -17,6 +17,9 @@ namespace CarlosTest.Services
         [JsonProperty(PropertyName = "parentName")]
         public string ParentName { get; set; }
 
+        [JsonProperty(PropertyName = "parentImage")]
+        public string ParentImage { get; set; }
+
         [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
     }
