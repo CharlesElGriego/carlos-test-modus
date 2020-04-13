@@ -1,0 +1,31 @@
+<div class="feed">
+
+  <div class="feed__header" fxLayout="row wrap">
+    <div class="feed__go-back" fxFlex="50">
+      <button mat-button color="accent" (click)="goToBack()">
+        <mat-icon matPrefix>arrow_back</mat-icon>Go back to my feeds
+      </button>
+    </div>
+  </div>
+
+  <div class="feed--margin-bottom" fxLayout="row wrap" fxLayout.xs="column">
+    <div class="feed__search" fxFlex="50" align="center">
+      <mat-form-field>
+        <input type="tel" matInput placeholder="Search content" (keyup)="search($event.target.value)">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <ng-container *ngFor="let item of (items$ |async), let i = index">
+      <div class="feed__items" fxFlex="50">
+        <app-feed-item [feedItem]="item"></app-feed-item>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="(items$ |async).length === 0">
+      <div class="feed__items" fxFlex="50">
+        No items available
+      </div>
+    </ng-container>
+
+  </div>
+</div>
