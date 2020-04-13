@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   //#region   Public Methods
+
   login(): void {
     this.authService.login(this.loginForm.value).subscribe(token => {
       if (token) {
@@ -44,11 +45,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     });
   }
-  get password() {
+  get password(): AbstractControl {
     return this.loginForm.get('password');
   }
 
-  get username() {
+  get username(): AbstractControl {
     return this.loginForm.get('username');
   }
   //#endregion
