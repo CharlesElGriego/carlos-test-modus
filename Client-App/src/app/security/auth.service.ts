@@ -69,4 +69,8 @@ export class AuthService {
       role: decode.role
     }));
   }
+
+  signUp(user: User): Observable<string> {
+    return this.http.post<string>('login/register', user);
+  }
 }
