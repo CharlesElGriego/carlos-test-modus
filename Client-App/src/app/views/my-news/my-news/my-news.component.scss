@@ -1,14 +1,16 @@
 .news {
   &__card {
-    margin: 5% 5% 0% 5%;
+    margin: 0% 5% 5% 5%;
   }
   @media (min-width: 600px) {
     &__card {
       margin: 5% 15% 0% 15%;
     }
   }
-}
-.example-header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
+  &--margin-bottom {
+    margin-bottom: 2em;
+  }
+  &__header {
+    padding-left: 2em;
+  }
 }
