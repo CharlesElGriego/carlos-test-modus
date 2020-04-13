@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/security/auth.service';
 import { User } from 'src/app/security/models';
@@ -23,7 +24,8 @@ export class MyFeedsComponent implements OnInit {
   //#region   Constructor
   constructor(
     private authService: AuthService,
-    private feedsService: FeedsService
+    private feedsService: FeedsService,
+    private router: Router
   ) { }
   //#endregion
 
@@ -34,6 +36,11 @@ export class MyFeedsComponent implements OnInit {
   //#endregion
 
   //#region   Public Methods
+
+  goToFeed(id: number) {
+    this.router.navigate([`my-feeds/${id}`]);
+  }
+
   suscribe(id: number, index: number): void {
     this.feedsService.suscribeToFeed(id, this.user.email).subscribe(
       valid => {

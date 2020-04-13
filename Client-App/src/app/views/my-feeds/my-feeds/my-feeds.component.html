@@ -1,5 +1,11 @@
-<div class="feeds" fxLayout="row wrap" fxLayout.xs="column">
+<div class="feeds__header">
+  <h3>My Feeds</h3>
+  <div *ngIf="(feeds$ |async).length === 0">
+    No items available
+  </div>
+</div>
 
+<div class="feeds" fxLayout="row wrap" fxLayout.xs="column">
   <div class="feeds__card" fxFlex="33%" fxFlex.sm="50%" *ngFor="let feed of (feeds$ |async), let i = index">
     <mat-card>
       <mat-card-header>
@@ -7,10 +13,8 @@
       </mat-card-header>
       <img class="feeds__img" mat-card-image src="{{feed.image}}" alt="{{feed.name}}">
       <mat-card-actions align="end">
-        <button *ngIf="!feed.isSubscribed" mat-button color="accent" (click)="suscribe(feed.id, i)">Suscribe</button>
-        <button *ngIf="feed.isSubscribed" mat-button disabled>Suscribed</button>
+        <button mat-button color="accent" (click)="goToFeed(feed.id)">Go to Feed</button>
       </mat-card-actions>
     </mat-card>
   </div>
-
 </div>
