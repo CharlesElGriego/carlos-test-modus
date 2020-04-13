@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
       exact: true,
     },
     {
-      link: 'feeds',
+      link: 'my-news',
       name: 'My News',
       exact: true,
     },
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //#region   Private Methods
   private registerEvents(): void {
     if (this.authService.isAlreadyAuthenticated()) {
-      this.router.navigate(['feeds']);
+      this.router.navigate(['my-feeds']);
     } else {
       this.router.navigate(['login']);
     }
